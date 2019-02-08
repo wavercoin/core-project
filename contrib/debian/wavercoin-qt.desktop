@@ -1,0 +1,12 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=WVC
+Comment=WVC P2P Cryptocurrency
+Comment[fr]=WVC, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=WVC, eşten eşe kriptografik sanal para birimi
+Exec=wavercoin-qt %u
+Terminal=false
+Type=Application
+Icon=wavercoin128
+MimeType=x-scheme-handler/wavercoin;
+Categories=Office;Finance;

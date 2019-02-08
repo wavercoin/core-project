@@ -1,0 +1,36 @@
+<!DOCTYPE RCC><RCC version="1.0">
+    <qresource prefix="/translations">
+        <file alias="bg">locale/wavercoin_bg.qm</file>
+        <file alias="ca">locale/wavercoin_ca.qm</file>
+        <file alias="cs">locale/wavercoin_cs.qm</file>
+        <file alias="da">locale/wavercoin_da.qm</file>
+        <file alias="de">locale/wavercoin_de.qm</file>
+        <file alias="en">locale/wavercoin_en.qm</file>
+        <file alias="en_US">locale/wavercoin_en_US.qm</file>
+        <file alias="eo">locale/wavercoin_eo.qm</file>
+        <file alias="es">locale/wavercoin_es.qm</file>
+        <file alias="es_ES">locale/wavercoin_es_ES.qm</file>
+        <file alias="fi">locale/wavercoin_fi.qm</file>
+        <file alias="fr_FR">locale/wavercoin_fr_FR.qm</file>
+        <file alias="hi_IN">locale/wavercoin_hi_IN.qm</file>
+        <file alias="hr">locale/wavercoin_hr.qm</file>
+        <file alias="hr_HR">locale/wavercoin_hr_HR.qm</file>
+        <file alias="it">locale/wavercoin_it.qm</file>
+        <file alias="ja">locale/wavercoin_ja.qm</file>
+        <file alias="ko_KR">locale/wavercoin_ko_KR.qm</file>
+        <file alias="lt_LT">locale/wavercoin_lt_LT.qm</file>
+        <file alias="nl">locale/wavercoin_nl.qm</file>
+        <file alias="pl">locale/wavercoin_pl.qm</file>
+        <file alias="pt">locale/wavercoin_pt.qm</file>
+        <file alias="pt_BR">locale/wavercoin_pt_BR.qm</file>
+        <file alias="ro_RO">locale/wavercoin_ro_RO.qm</file>
+        <file alias="ru">locale/wavercoin_ru.qm</file>
+        <file alias="sk">locale/wavercoin_sk.qm</file>
+        <file alias="sv">locale/wavercoin_sv.qm</file>
+        <file alias="tr">locale/wavercoin_tr.qm</file>
+        <file alias="uk">locale/wavercoin_uk.qm</file>
+        <file alias="vi">locale/wavercoin_vi.qm</file>
+        <file alias="zh_CN">locale/wavercoin_zh_CN.qm</file>
+        <file alias="zh_TW">locale/wavercoin_zh_TW.qm</file>
+    </qresource>
+</RCC>

@@ -1,0 +1,26 @@
+[Unit]
+Description=WVC's distributed currency daemon
+After=network.target
+
+[Service]
+User=wavercoin
+Group=wavercoin
+
+Type=forking
+PIDFile=/var/lib/wavercoind/wavercoind.pid
+
+ExecStart=/usr/bin/wavercoind -daemon -pid=/var/lib/wavercoind/wavercoind.pid \
+          -conf=/etc/wavercoin/wavercoin.conf -datadir=/var/lib/wavercoind
+
+ExecStop=-/usr/bin/wavercoin-cli -conf=/etc/wavercoin/wavercoin.conf \
+         -datadir=/var/lib/wavercoind stop
+
+Restart=always
+PrivateTmp=true
+TimeoutStopSec=60s
+TimeoutStartSec=2s
+StartLimitInterval=120s
+StartLimitBurst=5
+
+[Install]
+WantedBy=multi-user.target

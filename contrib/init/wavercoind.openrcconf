@@ -1,0 +1,26 @@
+# /etc/conf.d/wavercoind: config file for /etc/init.d/wavercoind
+
+# Config file location
+#BITCOIND_CONFIGFILE="/etc/wavercoin/wavercoin.conf"
+
+# What directory to write pidfile to?  (created and owned by $BITCOIND_USER)
+#BITCOIND_PIDDIR="/var/run/wavercoind"
+
+# What filename to give the pidfile
+#BITCOIND_PIDFILE="${BITCOIND_PIDDIR}/wavercoind.pid"
+
+# Where to write wavercoind data (be mindful that the blockchain is large)
+#BITCOIND_DATADIR="/var/lib/wavercoind"
+
+# User and group to own wavercoind process
+#BITCOIND_USER="wavercoin"
+#BITCOIND_GROUP="wavercoin"
+
+# Path to wavercoind executable
+#BITCOIND_BIN="/usr/bin/wavercoind"
+
+# Nice value to run wavercoind under
+#BITCOIND_NICE=0
+
+# Additional options (avoid -conf and -datadir, use flags above)
+BITCOIND_OPTS=""
