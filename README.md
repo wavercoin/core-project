@@ -51,9 +51,19 @@
     - Always use right button click for PASTE text in PUTTY from WINDOWS
 3. RUN script bellow(select from below, COPY, PASTE in Putty and press ENTER):
 
-**```wget https://github.com/wavercoin/core-project/releases/download/v1.0/waver_autoinstall.sh```**
 
-**```bash waver_autoinstall.sh```**
+```
+wget https://github.com/wavercoin/core-project/releases/download/v1.0/waver_autoinstall.sh
+bash waver_autoinstall.sh
+```
+
+### If the download speed is too slow when running with the above script, run the script below.
+
+```
+wget https://github.com/wavercoin/core-project/releases/download/v1.0/waver_autoinstall_dropbox.sh
+bash waver_autoinstall_dropbox.sh
+```
+
 
 (It may take 3-6 minutes. It will automatically install and configure masternode wallet for your masternode server!)
 
