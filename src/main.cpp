@@ -52,6 +52,7 @@ using namespace std;
  */
 
 CCriticalSection cs_main;
+CCriticalSection cs_mapstake;
 
 BlockMap mapBlockIndex;
 map<uint256, uint256> mapProofOfStake;
@@ -1991,8 +1992,12 @@ bool DisconnectBlock(CBlock& block, CValidationState& state, CBlockIndex* pindex
                 if (coins->vout.size() < out.n + 1)
                     coins->vout.resize(out.n + 1);
                 coins->vout[out.n] = undo.txout;
-		// erase the spent input
-		mapStakeSpent.erase(out);
+
+		{
+                    LOCK(cs_mapstake);
+                    // erase the spent input
+                    mapStakeSpent.erase(out);                
+                }
             }
         }
     }
@@ -2067,11 +2072,11 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
         return true;
     }
 
-    if (pindex->nHeight <= Params().LAST_POW_BLOCK() && block.IsProofOfStake())
+    if (pindex->nHeight <= LAST_POW_BLOCK(chainActive.Height()) && block.IsProofOfStake())
         return state.DoS(100, error("ConnectBlock() : PoS period not active"),
             REJECT_INVALID, "PoS-early");
 
-    if (pindex->nHeight > Params().LAST_POW_BLOCK() && block.IsProofOfWork())
+    if (pindex->nHeight > LAST_POW_BLOCK(chainActive.Height()) && block.IsProofOfWork())
         return state.DoS(100, error("ConnectBlock() : PoW period ended"),
             REJECT_INVALID, "PoW-ended");
 
@@ -2226,28 +2231,29 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
     if (fTxIndex)
         if (!pblocktree->WriteTxIndex(vPos))
             return state.Abort("Failed to write transaction index");
+	{
+        LOCK(cs_mapstake);    
 
  
 
-    // add new entries
-    for (const CTransaction tx: block.vtx) {
-        if (tx.IsCoinBase())
-            continue;
-        for (const CTxIn in: tx.vin) {
-            LogPrint("map", "mapStakeSpent: Insert %s | %u\n", in.prevout.ToString(), pindex->nHeight);
-            mapStakeSpent.insert(std::make_pair(in.prevout, pindex->nHeight));
+  // add new entries
+        for (const CTransaction tx: block.vtx) {
+            if (tx.IsCoinBase())
+                continue;
+            for (const CTxIn in: tx.vin) {
+                LogPrint("map", "mapStakeSpent: Insert %s | %u\n", in.prevout.ToString(), pindex->nHeight);
+                mapStakeSpent.insert(std::make_pair(in.prevout, pindex->nHeight));
+            }
         }
-    }
-
-
-    // delete old entries
-    for (auto it = mapStakeSpent.begin(); it != mapStakeSpent.end();) {
-        if (it->second < pindex->nHeight - Params().MaxReorganizationDepth()) {
-            LogPrint("map", "mapStakeSpent: Erase %s | %u\n", it->first.ToString(), it->second);
-            it = mapStakeSpent.erase(it);
-        }
-        else {
-            it++;
+        // delete old entries
+        for (auto it = mapStakeSpent.begin(); it != mapStakeSpent.end();) {
+            if (it->second < pindex->nHeight - Params().MaxReorganizationDepth()) {
+                LogPrint("map", "mapStakeSpent: Erase %s | %u\n", it->first.ToString(), it->second);
+                it = mapStakeSpent.erase(it);
+            }
+            else {
+                it++;
+            }
         }
     }
 
@@ -3397,6 +3403,7 @@ if (block.IsProofOfStake()) {
         CCoinsViewCache coins(pcoinsTip);
 
         if (!coins.HaveInputs(block.vtx[1])) {
+	   LOCK(cs_mapstake);
             // the inputs are spent at the chain tip so we should look at the recently spent outputs
 
             for (CTxIn in : block.vtx[1].vin) {
@@ -3404,7 +3411,7 @@ if (block.IsProofOfStake()) {
                 if (it == mapStakeSpent.end()) {
                     return false;
                 }
-                if (it->second <= pindexPrev->nHeight) {
+                if (it->second < pindexPrev->nHeight) {
                     return false;
                 }
             }
@@ -3415,10 +3422,22 @@ if (block.IsProofOfStake()) {
             // start at the block we're adding on to
             CBlockIndex *last = pindexPrev;
 
-            // while that block is not on the main chain
-            while (!chainActive.Contains(last) && pindexPrev != NULL) {
-                CBlock bl;
-                ReadBlockFromDisk(bl, last);
+            CBlock bl;
+            int readBlock = 0;
+            // Go backwards on the forked chain up to the split
+            while (!chainActive.Contains(last) && last != NULL) {
+
+                if(readBlock == Params().MaxReorganizationDepth()){
+                    // Remove this chain from disk.
+                    return error("%s: forked chain longer than maximum reorg limit", __func__);
+                }                
+                if(!ReadBlockFromDisk(bl, last))
+                    // Previous block not on disk
+                    return error("%s: previous block %s not on disk", __func__, last->GetBlockHash().GetHex());
+
+                // Increase amount of read blocks
+                readBlock++;
+
                 // loop through every spent input from said block
                 for (CTransaction t : bl.vtx) {
                     for (CTxIn in: t.vin) {
@@ -3427,7 +3446,7 @@ if (block.IsProofOfStake()) {
                             // if they spend the same input
                             if (stakeIn.prevout == in.prevout) {
                                 // reject the block
-                                return false;
+                                return state.DoS(100, error("%s: input already spent on a previous block",__func__));
                             }
                         }
                     }
@@ -3435,7 +3454,7 @@ if (block.IsProofOfStake()) {
 
 
                 // go to the parent block
-                last = pindexPrev->pprev;
+                last = last->pprev;
             }
         }
     }   
@@ -3610,7 +3629,7 @@ bool TestBlockValidity(CValidationState& state, const CBlock& block, CBlockIndex
     if (!CheckBlock(block, state, fCheckPOW, fCheckMerkleRoot))
         return false;
 	///AAAA
-	if( pindexPrev->nHeight +1 > Params().LAST_POW_BLOCK()){
+	if( pindexPrev->nHeight +1 > LAST_POW_BLOCK(chainActive.Height())){
     if (!ContextualCheckBlock(block, state, pindexPrev))
         return false;
 	}

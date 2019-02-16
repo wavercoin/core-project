@@ -150,7 +150,6 @@ public:
         nMinerThreads = 0;
         nTargetTimespan = 1 * 60;
         nTargetSpacing = 1 * 60;
-        nLastPOWBlock = 300;
         nMaturity = 120;
         nMasternodeCountDrift = 20;
         nModifierUpdateBlock = 1;

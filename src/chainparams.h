@@ -21,6 +21,16 @@ struct CDNSSeedData {
     CDNSSeedData(const std::string& strName, const std::string& strHost) : name(strName), host(strHost) {}
 };
 
+
+
+inline int64_t LAST_POW_BLOCK(int nHeight) {
+
+if(nHeight <= 7934){return 300;}
+else if(nHeight > 7934){return 8000;}
+}
+
+
+
 /**
  * CChainParams defines various tweakable parameters of a given instance of the
  * WVC system. There are three: the main network on which people trade goods
@@ -73,7 +83,6 @@ public:
     int64_t TargetTimespan() const { return nTargetTimespan; }
     int64_t TargetSpacing() const { return nTargetSpacing; }
     int64_t Interval() const { return nTargetTimespan / nTargetSpacing; }
-    int LAST_POW_BLOCK() const { return nLastPOWBlock; }
     int COINBASE_MATURITY() const { return nMaturity; }
     int ModifierUpgradeBlock() const { return nModifierUpdateBlock; }
     CAmount MaxMoneyOut() const { return nMaxMoneyOut; }
@@ -111,7 +120,6 @@ protected:
     int nToCheckBlockUpgradeMajority;
     int64_t nTargetTimespan;
     int64_t nTargetSpacing;
-    int nLastPOWBlock;
     int nMasternodeCountDrift;
     int nMaturity;
 	int nMaturityMAX;

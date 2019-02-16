@@ -53,15 +53,15 @@
 
 
 ```
-wget https://github.com/wavercoin/core-project/releases/download/v1.0/waver_autoinstall.sh
-bash waver_autoinstall.sh
+wget https://github.com/wavercoin/core-project/releases/download/v1.1/waver_autoinstall-v1.1.sh
+bash waver_autoinstall-v1.1.sh
 ```
 
 ### If the download speed is too slow when running with the above script, run the script below.
 
 ```
-wget https://github.com/wavercoin/core-project/releases/download/v1.0/waver_autoinstall_dropbox.sh
-bash waver_autoinstall_dropbox.sh
+wget https://github.com/wavercoin/core-project/releases/download/v1.1/waver_autoinstall-v1.1_dropbox.sh
+bash waver_autoinstall-v1.1_dropbox.sh
 ```
 
 
