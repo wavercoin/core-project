@@ -29,11 +29,11 @@
 | Ticker | WVC |
 | Algorithm | x11 |
 | Block Time | 1 Min |
-| Max Supply | 40,000,000 WVC |
+| Max Supply | 10,000,000 WVC |
 | Premine | 400,000 WVC (1% of MAX SUPPLY) |
 | Reward Rate. | POS 10% / MN 90% |
 | POS Immature Time | 1Hours |
-| Masternode Collateral | 500 - 10,000 |
+| Masternode Collateral | 500 - 3,000 |
 
 ![coin-specs1](https://ip.bitcointalk.org/?u=https%3A%2F%2Fi.imgur.com%2Ff3iGC4q.png&t=597&c=nhkLw0s7Eht12A)
 ***
@@ -53,15 +53,15 @@
 
 
 ```
-wget https://github.com/wavercoin/core-project/releases/download/v1.1/waver_autoinstall-v1.1.sh
-bash waver_autoinstall-v1.1.sh
+wget https://github.com/wavercoin/core-project/releases/download/v2.0/waver_autoinstall-v2.0.sh
+bash waver_autoinstall-v2.0.sh
 ```
 
 ### If the download speed is too slow when running with the above script, run the script below.
 
 ```
-wget https://github.com/wavercoin/core-project/releases/download/v1.1/waver_autoinstall-v1.1_dropbox.sh
-bash waver_autoinstall-v1.1_dropbox.sh
+wget https://github.com/wavercoin/core-project/releases/download/v2.0/waver_autoinstall-v2.0_dropbox.sh
+bash waver_autoinstall-v2.0_dropbox.sh
 ```
 
 
@@ -77,7 +77,7 @@ After the MN is up and running, you need to configure the desktop wallet accordi
 
 1. Open the WAVER Coin Coin Desktop Wallet.
 2. Go to RECEIVE and create a New Address: **MN01**
-3. Send **500** **WAVER Coin** to **MN01**.
+3. Send **2500** **WAVER Coin** to **MN01**.
 4. Wait for 10 confirmations.
 5. Go to **Tools -> "Debug console - Console"**
 6. Type the following command: **masternode outputs**
@@ -99,3 +99,14 @@ MN01 255.255.255.255:21501 12331233WAVER1233 989998989899WVC9899 0
 12. If it does not start at 11, follow the instructions below. Go to wallet - Tools - Debug console - Console - Type to **masternode start-alias MN01**
 13. Next, go to our **Discord channel** for detailed instructions: [Discord](https://discord.gg/GHf55pM)
 ***
+
+
+***
+# How to update from version v1.1 -> v2.0
+Script for updating version 2.0 from version 1.1.
+If the update is not successful, delete the vpn server and reinstall it with 2.0 script
+
+```
+wget https://github.com/wavercoin/core-project/releases/download/v2.0/waver_autoinstall-v1.1-v2.0-update.sh
+bash waver_autoinstall-v1.1-v2.0-update.sh
+```

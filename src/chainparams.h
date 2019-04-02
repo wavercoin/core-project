@@ -26,7 +26,8 @@ struct CDNSSeedData {
 inline int64_t LAST_POW_BLOCK(int nHeight) {
 
 if(nHeight <= 7934){return 300;}
-else if(nHeight > 7934){return 8000;}
+else if(nHeight > 7934 && nHeight <= 71834){return 8000;}
+else if(nHeight > 71834){return 71900;}
 }
 
 
@@ -173,17 +174,25 @@ inline int64_t MasternodeColleteralLimxDev(int nHeight) {
 	{
 	return 500;
 	}
-	else if(nHeight >= 59045 && nHeight < 102246)
+	else if(nHeight >= 59045 && nHeight < 188648)
 	{
 	return 2500;
 	}
-	else if(nHeight >= 102246 && nHeight < 159847)
+	else if(nHeight >= 188648 && nHeight < 275049)
 	{
-	return 5000;
+	return 2700;
 	}
-	else if(nHeight >= 159847)
+	else if(nHeight >= 275049 && nHeight < 404650)
 	{
-	return 10000;
+	return 2800;
+	}
+	else if(nHeight >= 404650 && nHeight < 663851)
+	{
+	return 2900;
+	}
+	else if(nHeight >= 663851)
+	{
+	return 3000;
 	}
 }
 

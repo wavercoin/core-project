@@ -35,7 +35,7 @@ SplashScreen::SplashScreen(Qt::WindowFlags f, const NetworkStyle* networkStyle) 
 
     // define text to place
     QString titleText = tr("Wavercoin Core");
-    QString versionText = tr("v1.1");
+    QString versionText = tr("v2.0");
     QString copyrightTextBtc = QChar(0xA9) + QString(" 2009-%1 ").arg(COPYRIGHT_YEAR) + QString(tr("The Bitcoin Core developers"));
     QString copyrightTextWavercoin = QChar(0xA9) + QString(" 2014-%1 ").arg(COPYRIGHT_YEAR) + QString(tr("The Wavercoin Core and PIVX developers"));
     QString copyrightTextWVC = QChar(0xA9) + QString(" 2019 ").arg(COPYRIGHT_YEAR) + QString(tr("The WVC developers"));

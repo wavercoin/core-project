@@ -32,7 +32,7 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
         return Params().ProofOfWorkLimit().GetCompact();
     }
 
-	if(pindexLast->nHeight >= 1 && pindexLast->nHeight <= 300 || pindexLast->nHeight >= 7935 && pindexLast->nHeight <= 8000) {
+	if(pindexLast->nHeight >= 1 && pindexLast->nHeight <= 300 || pindexLast->nHeight >= 7935 && pindexLast->nHeight <= 8000 || pindexLast->nHeight >= 71835 && pindexLast->nHeight <= 71900) {
         uint256 bnNew;
 		bnNew = ~uint256(0) >> 20;
 		return bnNew.GetCompact();
